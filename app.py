@@ -18,7 +18,6 @@ customer_data = load_data()
 
 # Sidebar for selecting features and number of clusters
 st.sidebar.title("Customer Segmentation")
-# Exclude "Gender" column from selectable features
 selected_features = st.sidebar.multiselect(
     "Select Features", customer_data.columns.drop("Gender")
 )
@@ -32,8 +31,6 @@ if len(selected_features) >= 2:
 
     # Data Visualization
     st.subheader("Data Visualization")
-    # Add interactive visualizations using seaborn or other libraries
-    # For example:
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.scatterplot(
         x=selected_features[0], y=selected_features[1], data=customer_data, ax=ax
@@ -73,12 +70,10 @@ if len(selected_features) >= 2:
     for i in range(k_clusters):
         st.write(f"Cluster {i+1}: {cluster_counts[i]} customers")
 
-    # Model Evaluation (Optional)
     st.subheader("Model Evaluation")
     silhouette_score = metrics.silhouette_score(X, Y)
     st.write(f"Silhouette Score/Clustering Accuracy: {silhouette_score}")
 
-    # Export Results (Optional)
     st.subheader("Export Results")
     export_format = st.selectbox("Select Export Format", ["CSV", "Excel"])
     if export_format == "CSV":
